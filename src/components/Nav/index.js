@@ -1,23 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import capitalizeFirstLetter from '../../utils/helpers';
 
-const Nav = () => {
-    const categorySelected = function (name) {
-        console.log(`${name} was selected`);
-    }
-    const [categories] = useState([
-        {
-            name: "commercial",
-            description: "Photos of grocery stores, food trucks, and other commercial projects"
-        },
-        { name: "portraits", description: "Portraits of people in my life" },
-        { name: "food", description: "Delicious delicacies" },
-        {
-          name: "landscape",
-          description: "Fields, farmhouses, waterfalls, and the beauty of nature",
-        },
-    ]);
-    const [currentCategory, setCurrentCategory] = useState(categories[0]);
+const Nav = (props) => {
+    const {
+        categories = [],
+        setCurrentCategory,
+        currentCategory
+    } = props;
+    useEffect(() => {
+        document.title = capitalizeFirstLetter(currentCategory.name);
+    }, [currentCategory]);
+
     return (
         <header>
             <h2>
@@ -50,7 +43,7 @@ const Nav = () => {
                 </ul>
             </nav>
         </header>
-    )
+    );
 };
 
 export default Nav;
